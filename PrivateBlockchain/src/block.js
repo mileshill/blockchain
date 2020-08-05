@@ -48,7 +48,6 @@ class Block {
             // Returning the Block is not valid
             // Returning the Block is valid
             resolve(tempHash === encryptedHash)
-
         });
     }
 
@@ -63,10 +62,14 @@ class Block {
      */
     getBData() {
         // Getting the encoded data saved in the Block
+        let encodedData = this.body;
         // Decoding the data to retrieve the JSON representation of the object
         // Parse the data to an object to be retrieve.
-
+        let decodedData = JSON.parse(hex2ascii(encodedData));
         // Resolve with the data if the object isn't the Genesis block
+        if(decodedData && this.height > 0){
+           return decodedData;
+        }
 
     }
 
