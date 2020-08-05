@@ -49,6 +49,11 @@ class Blockchain {
         });
     }
 
+    // getLatest block method
+    getLatestBlock(){
+        return this.chain[this.chain.length -1];
+    }
+
     /**
      * _addBlock(block) will store a block in the chain
      * @param {*} block 
@@ -64,7 +69,17 @@ class Blockchain {
     _addBlock(block) {
         let self = this;
         return new Promise(async (resolve, reject) => {
-           
+            const chainHeight = self.chain.length;
+            block.height = chainheight;
+            block.time = new Date().getTime().toString().slice(0, -3);
+            if (chainHeight > 0){
+                block.previousBlockHash = self.getLatestBlock().hash;
+            }
+            block.hash = SHA256(JSON.stringify(block)).toString();
+            self.chain.push(block);
+            self.height++;
+            resolve(block)
+            reject('ERR: Couldn\'t add block')
         });
     }
 

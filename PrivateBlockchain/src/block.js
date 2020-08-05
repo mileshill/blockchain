@@ -70,7 +70,6 @@ class Block {
         if(decodedData && this.height > 0){
            return decodedData;
         }
-
     }
 
 }
